@@ -43,8 +43,14 @@ function randomChurn(changed: Map<string, Device>, now: string) {
   for (let i = 0; i < count; i++) {
     const d = devices[Math.floor(rand() * devices.length)];
     if (isBusy(d) || d.status === 'UPDATING') continue;
-    const r = rand();
-    d.status = d.status === 'ONLINE' ? (r < 0.75 ? 'OFFLINE' : 'ERROR') : 'ONLINE';
+    if (d.status === 'ONLINE') {
+      // Most online devices stay online; keeps the fleet ~85-90% healthy.
+      const r = rand();
+      if (r > 0.15) continue;
+      d.status = r < 0.11 ? 'OFFLINE' : 'ERROR';
+    } else {
+      d.status = 'ONLINE';
+    }
     d.lastSeen = now;
     changed.set(d.id, d);
   }
