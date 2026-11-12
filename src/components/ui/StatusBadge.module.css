@@ -1,0 +1,46 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef0f3;
+  white-space: nowrap;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.ONLINE,
+.COMPLETED {
+  color: var(--color-online);
+  background: #e6f4ea;
+}
+.OFFLINE,
+.CANCELLED,
+.PAUSED {
+  color: var(--color-offline);
+}
+.UPDATING,
+.IN_PROGRESS,
+.SCHEDULED {
+  color: var(--color-updating);
+  background: #e8eef8;
+}
+.UPDATING .dot,
+.IN_PROGRESS .dot {
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.ERROR {
+  color: var(--color-error);
+  background: #fdecea;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
