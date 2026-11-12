@@ -53,7 +53,9 @@ export function Dialog({ title, onClose, children, footer }: DialogProps) {
     return () => {
       document.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = prevOverflow;
-      opener?.focus();
+      // If the opener was removed (e.g. a deleted row), fall back to the main region.
+      if (opener?.isConnected) opener.focus();
+      else document.getElementById('main')?.focus();
     };
   }, []);
 
